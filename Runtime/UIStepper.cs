@@ -17,20 +17,20 @@ namespace MM
             public class UIStepper : MonoBehaviour, ISelectHandler, IDeselectHandler
             {
                 [Header("General")]
+                public ColorMode colorMode = ColorMode.Images;
+                [Space]
                 public List<string> values;
                 public TMP_Text valueLabel;
                 [Space]
                 public bool isSelected;
                 [Space]
-                public Button leftArrowBtn;
-                public Button rightArrowBtn;
+                public Image leftArrowImg;
+                public Image rightArrowImg;
 
                 [HideInInspector]
                 public Slider slider;
 
 
-                private Color leftArrowSC;
-                private Color rightArrowSC;
                 private float previousValue;
 
 
@@ -78,17 +78,7 @@ namespace MM
 
                 void Awake()
                 {
-                    // Setup slider
-                    slider = GetComponent<Slider>();
-                    slider.minValue = 0;
-                    slider.maxValue = values.Count - 1;
-                    slider.onValueChanged.AddListener(delegate { OnValueChanged(slider.value); });
-
-                    UpdateValue(Mathf.RoundToInt(slider.value));
-
-                    // Set standard colors
-                    leftArrowSC = leftArrowBtn.image.color;
-                    rightArrowSC = rightArrowBtn.image.color;
+                    Setup(true);
                 }
 
                 void Start()
@@ -100,16 +90,14 @@ namespace MM
                 {
                     isSelected = true;
 
-                    leftArrowBtn.image.color = leftArrowSC * slider.colors.selectedColor;
-                    rightArrowBtn.image.color = rightArrowSC * slider.colors.selectedColor;
+                    UpdateColors();
                 }
 
                 public void OnDeselect(BaseEventData eventData)
                 {
                     isSelected = false;
 
-                    leftArrowBtn.image.color = leftArrowSC * slider.colors.normalColor;
-                    rightArrowBtn.image.color = rightArrowSC * slider.colors.normalColor;
+                    UpdateColors();
                 }
 
                 public void OnValueChanged(float _value)
@@ -118,9 +106,9 @@ namespace MM
 
                     // Animate Arrows
                     if (previousValue > _value)
-                        leftArrowBtn.OnSubmit(null);
+                        ExecuteEvents.Execute(leftArrowImg.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
                     else if (previousValue < _value)
-                        rightArrowBtn.OnSubmit(null);
+                        ExecuteEvents.Execute(rightArrowImg.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
 
                     // Set previousValue to _value
                     previousValue = _value;
@@ -142,6 +130,58 @@ namespace MM
                  *  
                  */
 
+                public void Setup(bool _fullSetup)
+                {
+                    // Setup slider
+                    slider = GetComponent<Slider>();
+                    slider.minValue = 0;
+                    slider.maxValue = values.Count - 1;
+                    if (_fullSetup)
+                        slider.onValueChanged.AddListener(delegate { OnValueChanged(slider.value); });
+
+                    UpdateValue(Mathf.RoundToInt(slider.value));
+
+                    UpdateColors();
+                }
+
+                public void UpdateColors()
+                {
+                    // Update Arrow color
+                    if (leftArrowImg != null && rightArrowImg != null)
+                    {
+                        Color _color = slider.colors.normalColor;
+                        if (isSelected)
+                            _color = slider.colors.selectedColor;
+
+                        switch (colorMode)
+                        {
+                            case ColorMode.Images:
+                                leftArrowImg.color = _color;
+                                rightArrowImg.color = _color;
+
+                                valueLabel.color = slider.colors.normalColor;
+
+                                break;
+
+                            case ColorMode.Text:
+                                leftArrowImg.color = slider.colors.normalColor;
+                                rightArrowImg.color = slider.colors.normalColor;
+
+                                valueLabel.color = _color;
+
+                                break;
+
+                            case ColorMode.ImagesAndText:
+                                leftArrowImg.color = _color;
+                                rightArrowImg.color = _color;
+
+                                valueLabel.color = _color;
+
+                                break;
+                        }
+                    }
+                }
+
                 public void UpdateValue(int _value)
                 {
                     if (_value < 0 || _value > values.Count - 1)
@@ -161,6 +201,13 @@ namespace MM
                  */
 
                 #endregion
+            }
+
+            public enum ColorMode
+            {
+                Images,
+                Text,
+                ImagesAndText,
             }
         }
     }

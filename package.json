@@ -5,8 +5,8 @@
 	"description": "Mario Elsnig's UI Library. It's used by some of my other packages and contains ui-related scripts.",
 	"unity": "2019.1",
 	"dependencies": {
-		"com.unity.textmeshpro": "",
-    	"com.mariomatschgi.unity.core": "https://github.com/MarioMatschgi/com.mariomatschgi.unity.core.git"
+    	"com.mariomatschgi.unity.core": "https://github.com/MarioMatschgi/com.mariomatschgi.unity.core.git",
+		"com.unity.textmeshpro": "2.0.0"
 	},
 	"author": {
 		"name" : "Mario Elsnig",
