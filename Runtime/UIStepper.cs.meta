@@ -1,15 +1,9 @@
 fileFormatVersion: 2
-guid: 50b6daa454c844fb9bae4b977c1d8124
+guid: c48dde91162a847ccb80288ead5eb948
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - valueLabel: {instanceID: 0}
-  - leftArrowBtn: {instanceID: 0}
-  - rightArrowBtn: {instanceID: 0}
-  - slider: {instanceID: 0}
-  - stepperPrefab: {fileID: 5629421758615366273, guid: cee57a2d0cc7943c8b6bd641923465df,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
