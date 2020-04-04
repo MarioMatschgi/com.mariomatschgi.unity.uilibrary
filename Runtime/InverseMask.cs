@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
- 
-public class InverseMask : Image
+
+namespace MM.Libraries.UI
 {
-    public override Material materialForRendering
+    public class InverseMask : Image
     {
-        get
+        public override Material materialForRendering
         {
-            Material result = base.materialForRendering;
-            result.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
-            return result;
+            get
+            {
+                Material result = base.materialForRendering;
+                result.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
+                return result;
+            }
         }
     }
 }

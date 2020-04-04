@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
 
-public class ScrollRectNoMouseDrag : ScrollRect
+namespace MM.Libraries.UI
 {
-    public override void OnBeginDrag(PointerEventData eventData) { }
-    public override void OnDrag(PointerEventData eventData) { }
-    public override void OnEndDrag(PointerEventData eventData) { }
+    public class ScrollRectNoMouseDrag : ScrollRect
+    {
+        public override void OnBeginDrag(PointerEventData eventData) { }
+        public override void OnDrag(PointerEventData eventData) { }
+        public override void OnEndDrag(PointerEventData eventData) { }
+    }
 }
