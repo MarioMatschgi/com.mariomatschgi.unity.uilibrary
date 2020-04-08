@@ -30,7 +30,7 @@ namespace MM.Libraries.UI
         public override void CalculateLayoutInputHorizontal()
         {
             // Manage base
-            //base.CalculateLayoutInputHorizontal();
+            base.CalculateLayoutInputHorizontal();
 
             // If fitType is Width, Height or Uniform, set fit and amount
             if (fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)
