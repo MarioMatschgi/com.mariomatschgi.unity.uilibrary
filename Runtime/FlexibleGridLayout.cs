@@ -55,12 +55,15 @@ namespace MM.Libraries.UI
             rows = Mathf.RoundToInt(Mathf.Clamp(rows, 1, Mathf.Infinity));
 
 
-            // If fitX, calc cellsizeX
-            if (fitX)
-                cellSize.x = (rectTransform.rect.width / (float)colums) - (space.x - space.x / (float)colums) - (padding.left / (float)colums) - (padding.right / (float)colums);
-            // If fitY, calc cellsizeY
-            if (fitY)
-                cellSize.y = (rectTransform.rect.height / (float)rows) - (space.y - space.y / (float)rows) - (padding.top / (float)rows) - (padding.bottom / (float)rows);
+            if (rectTransform != null)
+            {
+                // If fitX, calc cellsizeX
+                if (fitX)
+                    cellSize.x = (rectTransform.rect.width / (float)colums) - (space.x - space.x / (float)colums) - (padding.left / (float)colums) - (padding.right / (float)colums);
+                // If fitY, calc cellsizeY
+                if (fitY)
+                    cellSize.y = (rectTransform.rect.height / (float)rows) - (space.y - space.y / (float)rows) - (padding.top / (float)rows) - (padding.bottom / (float)rows);
+            }
 
             // Iterate through children and position and scale them accordingly
             for (int i = 0; i < rectTransform.childCount; i++)
