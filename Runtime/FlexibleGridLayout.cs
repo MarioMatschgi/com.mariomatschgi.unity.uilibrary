@@ -71,6 +71,9 @@ namespace MM.Libraries.UI
                 SetChildAlongAxis(rectChildren[i], 0, (i % colums) * (cellSize.x + space.x) + padding.left, cellSize.x);
                 SetChildAlongAxis(rectChildren[i], 1, (i / colums) * (cellSize.y + space.y) + padding.top, cellSize.y);
             }
+
+            SetLayoutInputForAxis(200, 200, 200, 0);
+            SetLayoutInputForAxis(200, 200, 200, 1);
         }
 
         public override void CalculateLayoutInputVertical() { }
