@@ -72,8 +72,8 @@ namespace MM.Libraries.UI
                 SetChildAlongAxis(rectChildren[i], 1, (i / colums) * (cellSize.y + space.y) + padding.top, cellSize.y);
             }
 
-            float _width = colums * (cellSize.x + space.x) + padding.left + padding.right;
-            float _height = rows *(cellSize.y + space.y) + padding.top + padding.bottom;
+            float _width = colums * (cellSize.x + space.x) - space.x + padding.left + padding.right;
+            float _height = rows * (cellSize.y + space.y) - space.y + padding.top + padding.bottom;
             SetLayoutInputForAxis(_width, _width, _width, 0);
             SetLayoutInputForAxis(_height, _height, _height, 1);
         }
