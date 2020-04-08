@@ -30,7 +30,7 @@ namespace MM.Libraries.UI
         public override void CalculateLayoutInputHorizontal()
         {
             // Manage base
-            base.CalculateLayoutInputHorizontal();
+            //base.CalculateLayoutInputHorizontal();
 
             // If fitType is Width, Height or Uniform, set fit and amount
             if (fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)
@@ -72,6 +72,7 @@ namespace MM.Libraries.UI
                 SetChildAlongAxis(rectChildren[i], 1, (i / colums) * (cellSize.y + space.y) + padding.top, cellSize.y);
             }
 
+            // Set size
             float _width = colums * (cellSize.x + space.x) - space.x + padding.left + padding.right;
             float _height = rows * (cellSize.y + space.y) - space.y + padding.top + padding.bottom;
             SetLayoutInputForAxis(_width, _width, _width, 0);
