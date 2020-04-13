@@ -27,19 +27,6 @@ namespace MM.Libraries.UI
          * 
          */
 
-        protected override void OnEnable()
-        {
-            rows = 1;
-            colums = 1;
-            fitType = FitType.Uniform;
-            space = new Vector2(0, 0);
-            cellSize = new Vector2(0, 0);
-
-            fitX = true;
-            fitY = true;
-
-            padding = new RectOffset(0, 0, 0, 0);
-        }
         public override void CalculateLayoutInputHorizontal()
         {
             // Manage base
