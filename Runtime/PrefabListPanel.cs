@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -72,6 +72,8 @@ namespace MM.Libraries.UI
 
             for (int i = 0; i < amount - _children.Count; i++)
                 InstantiatePrefab(_editor);
+
+            _children = GetComponentsInChildren<IPrefabListChild>(true);
             
             OnStartSetup?.Invoke(_children.ToArray());
 
