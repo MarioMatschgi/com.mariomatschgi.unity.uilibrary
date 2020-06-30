@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MM.Libraries.UI
 {
-    interface IPrefabListChild
+    public interface IPrefabListChild
     {
         void Setup();
     }
