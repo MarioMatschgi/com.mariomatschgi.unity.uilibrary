@@ -7,6 +7,11 @@ namespace MM.Libraries.UI
 {
     public class PrefabListPanel : MonoBehaviour
     {
+        public delegate void OnStartSetupEvent(IPrefabListChild[] _children);
+        public OnStartSetupEvent OnStartSetup;
+        public delegate void OnEndSetupEvent(IPrefabListChild[] _children);
+        public OnEndSetupEvent OnEndSetup;
+    
         [Header("General")] 
         public int amount;
         public GameObject prefab;
@@ -67,6 +72,13 @@ namespace MM.Libraries.UI
 
             for (int i = 0; i < amount - _children.Count; i++)
                 InstantiatePrefab(_editor);
+            
+            OnStartSetup?.Invoke(_children.ToArray());
+
+            foreach (IPrefabListChild _child in _children)
+                _child.Setup();
+            
+            OnEndSetup?.Invoke(_children.ToArray());
         }
 
         #endregion
