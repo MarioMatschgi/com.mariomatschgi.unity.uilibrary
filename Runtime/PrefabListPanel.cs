@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MM.Libraries.UI
 {
     public class PrefabListPanel : MonoBehaviour
     {
-        [Header("General")] public int amount;
+        [Header("General")] 
+        public int amount;
         public GameObject prefab;
 
 
@@ -44,18 +46,26 @@ namespace MM.Libraries.UI
                 for (int i = 0; i < transform.childCount; i++)
                     Destroy(transform.GetChild(i));
 
-            IPrefabListChild[] _children = GetComponentsInChildren<IPrefabListChild>(true);
-            if (_children == null)
-                _children = new IPrefabListChild[0];
+            IPrefabListChild[] _tmpChildren = GetComponentsInChildren<IPrefabListChild>(true);
+            List<IPrefabListChild> _children = new List<IPrefabListChild>();
+            if (_tmpChildren == null)
+                _tmpChildren = new IPrefabListChild[0];
+            
+            // Dont add duplicates to list
+            for (int i = 0; i < _tmpChildren.Length; i++)
+                for (int j = 0; j < _tmpChildren.Length; j++)
+                    if ( !((MonoBehaviour)_tmpChildren[i]).gameObject.Equals(((MonoBehaviour)_tmpChildren[j]).gameObject) )
+                        if (!_children.Contains(_tmpChildren[i]))
+                            _children.Add(_tmpChildren[i]);
 
             List<GameObject> _toDestroy = new List<GameObject>();
-            for (int i = 0; i < _children.Length - amount; i++)
+            for (int i = 0; i < _children.Count - amount; i++)
                 _toDestroy.Add(transform.GetChild(i).gameObject);
 
             for (int i = 0; i < _toDestroy.Count; i++)
                 DestroyImmediate(_toDestroy[i]);
 
-            for (int i = 0; i < amount - _children.Length; i++)
+            for (int i = 0; i < amount - _children.Count; i++)
                 InstantiatePrefab(_editor);
         }
 
@@ -71,13 +81,16 @@ namespace MM.Libraries.UI
 
         void InstantiatePrefab(bool _editor)
         {
+            GameObject _go = null;
             if (_editor)
 #if UNITY_EDITOR
-                ((GameObject) UnityEditor.PrefabUtility.InstantiatePrefab(prefab, transform))
-                    .AddComponent<PrefabListChild>();
+                _go = ((GameObject) UnityEditor.PrefabUtility.InstantiatePrefab(prefab, transform));
 #endif
             else
-                Instantiate(prefab, transform).AddComponent<PrefabListChild>();
+                _go = Instantiate(prefab, transform);
+
+            if (_go.GetComponent<IPrefabListChild>() == null)
+                _go.AddComponent<PrefabListChild>();
         }
 
         #endregion
