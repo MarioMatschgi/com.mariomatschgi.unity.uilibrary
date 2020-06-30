@@ -73,7 +73,7 @@ namespace MM.Libraries.UI
             for (int i = 0; i < amount - _children.Count; i++)
                 InstantiatePrefab(_editor);
 
-            _children = GetComponentsInChildren<IPrefabListChild>(true);
+            _children = GetComponentsInChildren<IPrefabListChild>(true).ToList();
             
             OnStartSetup?.Invoke(_children.ToArray());
 
