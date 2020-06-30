@@ -51,7 +51,7 @@ namespace MM.Libraries.UI
                 for (int i = 0; i < transform.childCount; i++)
                     Destroy(transform.GetChild(i));
 
-            IPrefabListChild[] _tmpChildren = GetComponentsInChildren<IPrefabListChild>(true);
+            IPrefabListChild[] _tmpChildren = gameObject.GetComponentsInDirectChildren<IPrefabListChild>().ToArray();//GetComponentsInChildren<IPrefabListChild>(true);
             List<IPrefabListChild> _children = new List<IPrefabListChild>();
             if (_tmpChildren == null)
                 _tmpChildren = new IPrefabListChild[0];
