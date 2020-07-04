@@ -5,20 +5,28 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode]
-[AddComponentMenu("MM UI/RoundedCorners")]
-public class RoundedCorners : RoundedCornersBase
+namespace MM.Libraries.UI
 {
-	public override string cacheFolderPath { get { return "Assets/RoundedCornersMaterials"; } }
-	private static readonly int Props = Shader.PropertyToID("_WidthHeightRadius");
-
-	public float radius;
-
-	protected override void Refresh()
+	[ExecuteInEditMode]
+	[AddComponentMenu("MM UI/RoundedCorners")]
+	public class RoundedCorners : RoundedCornersBase
 	{
-		base.Refresh();
-		
-		var rect = ((RectTransform)transform).rect;
-		material.SetVector(Props, new Vector4(rect.width, rect.height, radius, 0));
+		public override string cacheFolderPath
+		{
+			get { return "Assets/RoundedCornersMaterials"; }
+		}
+
+		private static readonly int Props = Shader.PropertyToID("_WidthHeightRadius");
+
+		[Range(0, 50)] public float radius;
+
+		protected override void Refresh()
+		{
+			base.Refresh();
+
+			var _rect = ((RectTransform) transform).rect;
+			float _r = radius.Remap(0, 50, 0, Mathf.Min(_rect.width, _rect.height));
+			material.SetVector(Props, new Vector4(_rect.width, _rect.height, _r, 0));
+		}
 	}
 }
