@@ -21,6 +21,7 @@ namespace MM.Libraries.UI
         
         bool isGenerating;
 
+
         protected void Start()
         {
             RefreshMaterialFolder();
