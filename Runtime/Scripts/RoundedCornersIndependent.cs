@@ -8,7 +8,7 @@ namespace MM.Libraries.UI
 	[AddComponentMenu("MM UI/RoundedCornersIndependent")]
 	public class RoundedCornersIndependent : RoundedCornersBase
 	{
-		public RoundedCornerRadii radii;
+		public RoundedCornerRadii radii = new RoundedCornerRadii();
 		Vector4 c_radii;
 
 		[HideInInspector, SerializeField] private Vector4 rect2props;
