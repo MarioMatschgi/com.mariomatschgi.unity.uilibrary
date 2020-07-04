@@ -22,12 +22,14 @@ public class RoundedCornersEditor : Editor
     {
         base.OnInspectorGUI();
 
-        RoundedCorners _roundedCorners = ((RoundedCorners)target);
+        RoundedCornersBase _roundedCorners = ((RoundedCornersBase)target);
         
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Generate a new material"))
         {
             _roundedCorners.NewMaterial();
+            
+            Debug.Log("A material was generated!");
         }
         if (GUILayout.Button("Select the current material"))
         {
@@ -36,6 +38,8 @@ public class RoundedCornersEditor : Editor
         if (GUILayout.Button("Refresh the material folder"))
         {
             _roundedCorners.RefreshMaterialFolder();
+            
+            Debug.Log("The material folder was refreshed!");
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -60,3 +64,7 @@ public class RoundedCornersEditor : Editor
 
     #endregion
 }
+
+[CanEditMultipleObjects]
+[CustomEditor(typeof(RoundedCornersIndependent))]
+public class RoundedCornersIndependentEditor : RoundedCornersEditor { }

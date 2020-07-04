@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class RoundedCornersIndependent : RoundedCorners
+[AddComponentMenu("MM UI/RoundedCornersIndependent")]
+public class RoundedCornersIndependent : RoundedCornersBase
 {
 	public Vector4 radii;
 	
@@ -19,17 +20,9 @@ public class RoundedCornersIndependent : RoundedCorners
 	private static readonly Vector2 wNorm = new Vector2(.7071068f, -.7071068f);
 	// Vector2.right rotated counter-clockwise by 45 degrees
 	private static readonly Vector2 hNorm = new Vector2(.7071068f, .7071068f);
-
 	
-	void OnRectTransformDimensionsChange(){
-		Refresh();
-	}
-	
-	void OnValidate(){
-		Refresh();
-	}
-	
-	private void RecalculateProps(Vector2 size){
+	private void RecalculateProps(Vector2 size)
+	{
 		// Vector that goes from left to right sides of rect2
 		var aVec = new Vector2(size.x, -size.y + radii.x + radii.z);
 
@@ -37,14 +30,12 @@ public class RoundedCornersIndependent : RoundedCorners
 		var halfWidth = Vector2.Dot(aVec, wNorm) * .5f;
 		rect2props.z = halfWidth;
 		
-		
 		// Vector that goes from bottom to top sides of rect2
 		var bVec = new Vector2(size.x, size.y - radii.w - radii.y);
 		
 		// Project vector bVec to hNorm to get magnitude of rect2 height vector
 		var halfHeight = Vector2.Dot(bVec, hNorm) * .5f;
 		rect2props.w = halfHeight;
-		
 		
 		// Vector that goes from left to top sides of rect2
 		var efVec = new Vector2(size.x - radii.x - radii.y, 0);
@@ -61,15 +52,13 @@ public class RoundedCornersIndependent : RoundedCorners
 	}
 
 	protected override void Refresh() {
+		base.Refresh();
+		
 		var rect = ((RectTransform) transform).rect;
 		RecalculateProps(rect.size);
-		
-		if (material == null)
-			NewMaterial();
 		
 		material.SetVector(prop_rect2props, rect2props);
 		material.SetVector(prop_halfSize, rect.size * .5f);
 		material.SetVector(prop_radiuses, radii);
 	}
-
 }
