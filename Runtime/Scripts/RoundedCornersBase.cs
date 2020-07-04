@@ -17,44 +17,50 @@ namespace MM.Libraries.UI
         }
 
         public Material material;
+        
+        
+        bool isGenerating;
+
+        protected void Start()
+        {
+            RefreshMaterialFolder();
+        }
 
         protected void Reset()
         {
-            Refresh();
-            NewMaterial();
+            RefreshMaterialFolder();
         }
 
-        protected void OnRectTransformDimensionsChange()
+        protected void Update()
         {
-            Refresh();
+            TryRefresh();
         }
 
         protected void OnDestroy()
         {
             GetComponent<Image>().material = null;
-        }
-
-        protected void OnValidate()
-        {
-            Refresh();
+            RefreshMaterialFolder(GetInstanceID().ToString());
         }
 
         public void NewMaterial()
         {
-            Material _material = new Material(Shader.Find(this is RoundedCornersIndependent
-                ? "UI/RoundedCorners/RoundedCornersIndependent"
-                : "UI/RoundedCorners/RoundedCorners"));
+            if (isGenerating)
+                return;
+            
+            Material _material = new Material(Shader.Find(this is RoundedCornersIndependent ? "UI/RoundedCorners/RoundedCornersIndependent" : "UI/RoundedCorners/RoundedCorners"));
             Directory.CreateDirectory(cacheFolderPath);
+            isGenerating = true;
             AssetDatabase.CreateAsset(_material, cacheFolderPath + "/" + GetInstanceID() + ".mat");
 
             GetComponent<Image>().material = _material;
             material = _material;
-
-            Refresh();
+            
+            TryRefresh();
             RefreshMaterialFolder();
+            isGenerating = false;
         }
 
-        public void RefreshMaterialFolder()
+        public void RefreshMaterialFolder(string _forcedInstanceId = "")
         {
             if (Directory.Exists(cacheFolderPath))
             {
@@ -69,7 +75,7 @@ namespace MM.Libraries.UI
                         continue;
 
                     string _fileName = _filePath.Split('/').Last();
-                    if (!_roundedCorners.Any(o => o.GetInstanceID() + ".mat" == _fileName)) // Don't change
+                    if (_forcedInstanceId + ".mat" == _fileName || !_roundedCorners.Any(o => o.GetInstanceID() + ".mat" == _fileName)) // Don't change
                     {
                         File.Delete(_filePath);
                         File.Delete(_filePath.Replace(".mat", ".mat.meta"));
@@ -81,9 +87,9 @@ namespace MM.Libraries.UI
             }
         }
 
-        protected virtual void Refresh()
+        protected virtual void TryRefresh()
         {
-            if (material == null)
+            if (material == null || material.name != GetInstanceID().ToString())
                 NewMaterial();
         }
     }

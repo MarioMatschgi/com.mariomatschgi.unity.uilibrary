@@ -43,9 +43,11 @@ namespace MM.Libraries.UI
 			c_radii.w = radii.bottomLeft.Remap(0, 100, 0, Mathf.Min(size.x, size.y));
 		}
 
-		protected override void Refresh()
+		protected override void TryRefresh()
 		{
-			base.Refresh();
+			base.TryRefresh();
+			if (material == null)
+				return;
 
 			var _rect = ((RectTransform) transform).rect;
 			RecalculateProps(_rect.size);

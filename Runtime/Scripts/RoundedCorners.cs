@@ -20,9 +20,11 @@ namespace MM.Libraries.UI
 
 		[Range(0, 50)] public float radius;
 
-		protected override void Refresh()
+		protected override void TryRefresh()
 		{
-			base.Refresh();
+			base.TryRefresh();
+			if (material == null)
+				return;
 
 			var _rect = ((RectTransform) transform).rect;
 			float _r = radius.Remap(0, 50, 0, Mathf.Min(_rect.width, _rect.height));
