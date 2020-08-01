@@ -50,19 +50,13 @@ namespace MM.Libraries.UI
             List<GameObject> _toDestroy = new List<GameObject>();
             if (_forceRegenerate)
             {
-                if (_editor)
-                {
-                    for (int i = 0; i < transform.childCount; i++)
-                        _toDestroy.Add(transform.GetChild(i).gameObject);
-                        
-                    for (int i = 0; i < _toDestroy.Count; i++)
-                        DestroyImmediate(_toDestroy[i]);
-                        
-                    _toDestroy = new List<GameObject>();
-                }
-                else
-                    for (int i = 0; i < transform.childCount; i++)
-                        Destroy(transform.GetChild(i).gameObject);
+                for (int i = 0; i < transform.childCount; i++)
+                    _toDestroy.Add(transform.GetChild(i).gameObject);
+                    
+                for (int i = 0; i < _toDestroy.Count; i++)
+                    DestroyImmediate(_toDestroy[i]);
+                    
+                _toDestroy = new List<GameObject>();
             }
 
             IPrefabListChild[] _tmpChildren = gameObject.GetComponentsInDirectChildren<IPrefabListChild>().ToArray();//GetComponentsInChildren<IPrefabListChild>(true);
