@@ -47,9 +47,23 @@ namespace MM.Libraries.UI
 
         public void RegenerateChildren(bool _editor, bool _forceRegenerate = false)
         {
+            List<GameObject> _toDestroy = new List<GameObject>();
             if (_forceRegenerate)
-                for (int i = 0; i < transform.childCount; i++)
-                    Destroy(transform.GetChild(i));
+            {
+                if (_editor)
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                        _toDestroy.Add(transform.GetChild(i).gameObject);
+                        
+                    for (int i = 0; i < _toDestroy.Count; i++)
+                        DestroyImmediate(_toDestroy[i]);
+                        
+                    _toDestroy = new List<GameObject>();
+                }
+                else
+                    for (int i = 0; i < transform.childCount; i++)
+                        Destroy(transform.GetChild(i).gameObject);
+            }
 
             IPrefabListChild[] _tmpChildren = gameObject.GetComponentsInDirectChildren<IPrefabListChild>().ToArray();//GetComponentsInChildren<IPrefabListChild>(true);
             List<IPrefabListChild> _children = new List<IPrefabListChild>();
@@ -63,7 +77,6 @@ namespace MM.Libraries.UI
                         if (!_children.Contains(_tmpChildren[i]))
                             _children.Add(_tmpChildren[i]);
 
-            List<GameObject> _toDestroy = new List<GameObject>();
             for (int i = 0; i < _children.Count - amount; i++)
                 _toDestroy.Add(transform.GetChild(i).gameObject);
 
