@@ -24,10 +24,10 @@ namespace MM.Libraries.UI
         /// <param name="_image"></param>
         /// <param name="_time"></param>
         /// <param name="_setAlphaAtBeginningToo"></param>
-        public static void FadeOut(this Image _image, float _time, bool _setAlphaAtBeginningToo)
+        public static Coroutine FadeOut(this Image _image, float _time, bool _setAlphaAtBeginningToo)
         {
             _image.gameObject.SetActive(true);
-            _image.StartCoroutine(FadeOutIE(_image, _time, _setAlphaAtBeginningToo));
+            return _image.StartCoroutine(FadeOutIE(_image, _time, _setAlphaAtBeginningToo));
         }
         static IEnumerator FadeOutIE(Image _image, float _time, bool _setAlphaAtBeginningToo)
         {
@@ -62,10 +62,10 @@ namespace MM.Libraries.UI
         /// <param name="_canvasGroup"></param>
         /// <param name="_time"></param>
         /// <param name="_setAlphaAtBeginningToo"></param>
-        public static void FadeOut(this CanvasGroup _canvasGroup, float _time, MonoBehaviour _mb, bool _setAlphaAtBeginningToo)
+        public static Coroutine FadeOut(this CanvasGroup _canvasGroup, float _time, MonoBehaviour _mb, bool _setAlphaAtBeginningToo)
         {
             _canvasGroup.gameObject.SetActive(true);
-            _mb.StartCoroutine(FadeOutIE(_canvasGroup, _time, _setAlphaAtBeginningToo));
+            return _mb.StartCoroutine(FadeOutIE(_canvasGroup, _time, _setAlphaAtBeginningToo));
         }
         static IEnumerator FadeOutIE(CanvasGroup _canvasGroup, float _time, bool _setAlphaAtBeginningToo)
         {
@@ -96,10 +96,10 @@ namespace MM.Libraries.UI
         /// <param name="_image"></param>
         /// <param name="_time"></param>
         /// <param name="_setAlphaAtBeginningToo"></param>
-        public static void FadeIn(this Image _image, float _time, bool _setAlphaAtBeginningToo)
+        public static Coroutine FadeIn(this Image _image, float _time, bool _setAlphaAtBeginningToo)
         {
             _image.gameObject.SetActive(true);
-            _image.StartCoroutine(FadeInIE(_image, _time, _setAlphaAtBeginningToo));
+            return _image.StartCoroutine(FadeInIE(_image, _time, _setAlphaAtBeginningToo));
         }
         static IEnumerator FadeInIE(Image _image, float _time, bool _setAlphaAtBeginningToo)
         {
@@ -134,10 +134,10 @@ namespace MM.Libraries.UI
         /// <param name="_canvasGroup"></param>
         /// <param name="_time"></param>
         /// <param name="_setAlphaAtBeginningToo"></param>
-        public static void FadeIn(this CanvasGroup _canvasGroup, float _time, MonoBehaviour _mb, bool _setAlphaAtBeginningToo)
+        public static Coroutine FadeIn(this CanvasGroup _canvasGroup, float _time, MonoBehaviour _mb, bool _setAlphaAtBeginningToo)
         {
             _canvasGroup.gameObject.SetActive(true);
-            _mb.StartCoroutine(FadeInIE(_canvasGroup, _time, _setAlphaAtBeginningToo));
+            return _mb.StartCoroutine(FadeInIE(_canvasGroup, _time, _setAlphaAtBeginningToo));
         }
         static IEnumerator FadeInIE(CanvasGroup _canvasGroup, float _time, bool _setAlphaAtBeginningToo)
         {
