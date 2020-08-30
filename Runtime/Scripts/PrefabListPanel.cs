@@ -103,10 +103,12 @@ namespace MM.Libraries.UI
         void InstantiatePrefab(bool _editor)
         {
             GameObject _go = null;
-            if (_editor)
+            if (_editor) 
+            {
 #if UNITY_EDITOR
                 _go = ((GameObject) UnityEditor.PrefabUtility.InstantiatePrefab(prefab, transform));
 #endif
+            }
             else
                 _go = Instantiate(prefab, transform);
 
