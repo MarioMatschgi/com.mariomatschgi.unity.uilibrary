@@ -45,6 +45,7 @@ namespace MM.Libraries.UI
 
         public void NewMaterial()
         {
+            #if UNITY_EDITOR
             if (isGenerating)
                 return;
             
@@ -59,10 +60,12 @@ namespace MM.Libraries.UI
             TryRefresh();
             RefreshMaterialFolder();
             isGenerating = false;
+            #endif
         }
 
         public void RefreshMaterialFolder(string _forcedInstanceId = "")
         {
+            #if UNITY_EDITOR
             if (Directory.Exists(cacheFolderPath))
             {
 #pragma warning disable 618
@@ -86,6 +89,7 @@ namespace MM.Libraries.UI
                     }
                 }
             }
+            #endif
         }
 
         protected virtual void TryRefresh()
